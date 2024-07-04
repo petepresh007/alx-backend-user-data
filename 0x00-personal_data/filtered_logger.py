@@ -4,9 +4,6 @@ import logging
 import re
 
 
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
-
-
 def filter_datum(fields, redaction, message, separator):
     '''a function to carry out filtering'''
     return re.sub(
@@ -42,6 +39,7 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     """Creates and returns a logger with the specified configuration."""
+    PII_FIELDS = ("name", "email", "phone", "ssn", "password")
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
