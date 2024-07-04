@@ -80,3 +80,23 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                  database=db_name,
             )
     return connection
+
+
+def main() -> None:
+    """Main function to retrieve and log user data."""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+
+    logger = get_logger()
+
+    rows = cursor.fetchall()
+    for row in rows:
+        user_data = (
+            f"name={row[0]}; email={row[1]}; phone={row[2]}; ssn={row[3]}; password={row[4]}; "
+            f"ip={row[5]}; last_login={row[6]}; user_agent={row[7]}"
+        )
+        logger.info(user_data)
+
+    cursor.close()
+    db.close()
