@@ -2,9 +2,15 @@
 '''a module to filter'''
 import logging
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(
+        fields: List[str],
+        redaction: str,
+        message: str,
+        separator: str,
+        ) -> str:
     '''a function to carry out filtering'''
     return re.sub(
              f"({'|'.join(fields)})=[^{separator}]*",
