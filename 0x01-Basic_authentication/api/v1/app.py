@@ -40,6 +40,7 @@ def forbidden(error) -> str:
 
 @app.before_request
 def before_request_func():
+    '''before request function'''
     if auth is None:
         return
     excluded_paths = [
