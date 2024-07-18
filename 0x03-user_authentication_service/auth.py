@@ -2,6 +2,7 @@
 '''module to hash password'''
 import bcrypt
 from db import DB
+from typing import Union
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 import uuid
@@ -61,12 +62,13 @@ class Auth:
         self._db.update_user(user.id, session_id=session_id)
         return session_id
 
-    def get_user_from_session_id(self, session_id: str) -> User, None:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         '''get users by session id'''
+        user = None
         if session_id is None:
             return None
         try:
             user = self._db.find_user_by(session_id=session_id)
-            return user
         except NoResultFound:
             return None
+        return user
